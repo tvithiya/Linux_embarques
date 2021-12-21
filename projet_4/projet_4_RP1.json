@@ -1,0 +1,301 @@
+[
+    {
+        "id": "75b23f6f5e108b2d",
+        "type": "tab",
+        "label": "Flow 4",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "cce94b8561c91e29",
+        "type": "comment",
+        "z": "75b23f6f5e108b2d",
+        "name": "RP1 reçoit un string de RP2",
+        "info": "",
+        "x": 140,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "df92d18c0ee2ad47",
+        "type": "mqtt out",
+        "z": "75b23f6f5e108b2d",
+        "name": "",
+        "topic": "sense/environment",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "bc0e3d7c6e7c6a89",
+        "x": 310,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "a21a1f0717d9e741",
+        "type": "mqtt in",
+        "z": "75b23f6f5e108b2d",
+        "name": "",
+        "topic": "sense/motion",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "3e14b5df59dce10f",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 320,
+        "wires": [
+            [
+                "ab480d074f155fc2"
+            ]
+        ]
+    },
+    {
+        "id": "3a7cf2eb9ef73d0a",
+        "type": "mqtt in",
+        "z": "75b23f6f5e108b2d",
+        "name": "",
+        "topic": "sense/text",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "f91af2d4514920c1",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 100,
+        "y": 500,
+        "wires": [
+            [
+                "5523c847f2a57afc"
+            ]
+        ]
+    },
+    {
+        "id": "79b8a1b3d92efc99",
+        "type": "comment",
+        "z": "75b23f6f5e108b2d",
+        "name": "RP1 mqtt sender",
+        "info": "",
+        "x": 120,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "842a24f35eade86e",
+        "type": "comment",
+        "z": "75b23f6f5e108b2d",
+        "name": "Récupère les données environment de la RP1 et l'envoie à la RP2",
+        "info": "",
+        "x": 270,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "4ad5e1fadb356c16",
+        "type": "rpi-sensehat in",
+        "z": "75b23f6f5e108b2d",
+        "name": "",
+        "motion": false,
+        "env": true,
+        "stick": false,
+        "x": 110,
+        "y": 120,
+        "wires": [
+            [
+                "df92d18c0ee2ad47"
+            ]
+        ]
+    },
+    {
+        "id": "5523c847f2a57afc",
+        "type": "rpi-sensehat out",
+        "z": "75b23f6f5e108b2d",
+        "name": "",
+        "x": 330,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "8de22eef.715c2",
+        "type": "change",
+        "z": "75b23f6f5e108b2d",
+        "name": "acceleration",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.acceleration",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 410,
+        "y": 320,
+        "wires": [
+            [
+                "75db5c18.2a9e14"
+            ]
+        ]
+    },
+    {
+        "id": "75db5c18.2a9e14",
+        "type": "ui_text",
+        "z": "75b23f6f5e108b2d",
+        "group": "ac2cf55c0f82b575",
+        "order": 37,
+        "width": 12,
+        "height": 2,
+        "name": "",
+        "label": "acceleration",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 571,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "7c74ea9b26eed44c",
+        "type": "comment",
+        "z": "75b23f6f5e108b2d",
+        "name": "RP1 mqtt receiver",
+        "info": "",
+        "x": 130,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "ab480d074f155fc2",
+        "type": "switch",
+        "z": "75b23f6f5e108b2d",
+        "name": "motion",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "sense/motion",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 250,
+        "y": 320,
+        "wires": [
+            [
+                "8de22eef.715c2"
+            ]
+        ]
+    },
+    {
+        "id": "bc0e3d7c6e7c6a89",
+        "type": "mqtt-broker",
+        "name": "192.168.43.86",
+        "broker": "192.168.43.86",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "3e14b5df59dce10f",
+        "type": "mqtt-broker",
+        "name": "192.168.43.250",
+        "broker": "192.168.43.250",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "f91af2d4514920c1",
+        "type": "mqtt-broker",
+        "name": "192.168.43.250",
+        "broker": "192.168.43.250",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "ac2cf55c0f82b575",
+        "type": "ui_group",
+        "name": "RPI_PROJET4",
+        "tab": "aaadb2cedd4ef96c",
+        "order": 1,
+        "disp": true,
+        "width": 20,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "aaadb2cedd4ef96c",
+        "type": "ui_tab",
+        "name": "RPI_Sense_hat",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]

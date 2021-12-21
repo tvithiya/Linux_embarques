@@ -1,0 +1,544 @@
+[
+    {
+        "id": "8c7574dc27b41d05",
+        "type": "tab",
+        "label": "Flow 6",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "4b73efabaecdef21",
+        "type": "ui_gauge",
+        "z": "8c7574dc27b41d05",
+        "name": "",
+        "group": "ac2cf55c0f82b575",
+        "order": 1,
+        "width": 6,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Temperature",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 770,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "bd696b85eb093f4a",
+        "type": "ui_gauge",
+        "z": "8c7574dc27b41d05",
+        "name": "",
+        "group": "ac2cf55c0f82b575",
+        "order": 2,
+        "width": 7,
+        "height": 3,
+        "gtype": "wave",
+        "title": "Humidity",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#b638ca"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 760,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "427dbb08c428954e",
+        "type": "ui_gauge",
+        "z": "8c7574dc27b41d05",
+        "name": "",
+        "group": "ac2cf55c0f82b575",
+        "order": 3,
+        "width": 7,
+        "height": 3,
+        "gtype": "donut",
+        "title": "Pressure",
+        "label": "hPa",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "1500",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 760,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "dfa3b50322be371c",
+        "type": "ui_chart",
+        "z": "8c7574dc27b41d05",
+        "name": "",
+        "group": "ac2cf55c0f82b575",
+        "order": 4,
+        "width": 12,
+        "height": 4,
+        "label": "Temperature",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "20",
+        "ymax": "50",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 770,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "758c6fa090566d89",
+        "type": "change",
+        "z": "8c7574dc27b41d05",
+        "name": "hum",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.humidity",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 446.5,
+        "y": 199,
+        "wires": [
+            [
+                "e751974a8d12841f"
+            ]
+        ]
+    },
+    {
+        "id": "da85664a71f756d2",
+        "type": "change",
+        "z": "8c7574dc27b41d05",
+        "name": "atm",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.pressure",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 445.5,
+        "y": 253,
+        "wires": [
+            [
+                "c55ac1695e911afd"
+            ]
+        ]
+    },
+    {
+        "id": "da2d115b701f78f2",
+        "type": "smooth",
+        "z": "8c7574dc27b41d05",
+        "name": "",
+        "property": "payload",
+        "action": "mean",
+        "count": "10",
+        "round": "1",
+        "mult": "single",
+        "x": 577,
+        "y": 132,
+        "wires": [
+            [
+                "4b73efabaecdef21",
+                "dfa3b50322be371c"
+            ]
+        ]
+    },
+    {
+        "id": "e751974a8d12841f",
+        "type": "smooth",
+        "z": "8c7574dc27b41d05",
+        "name": "",
+        "property": "payload",
+        "action": "mean",
+        "count": "10",
+        "round": "1",
+        "mult": "single",
+        "x": 576,
+        "y": 199,
+        "wires": [
+            [
+                "bd696b85eb093f4a"
+            ]
+        ]
+    },
+    {
+        "id": "c55ac1695e911afd",
+        "type": "smooth",
+        "z": "8c7574dc27b41d05",
+        "name": "",
+        "property": "payload",
+        "action": "mean",
+        "count": "10",
+        "round": "1",
+        "mult": "single",
+        "x": 574,
+        "y": 253,
+        "wires": [
+            [
+                "427dbb08c428954e"
+            ]
+        ]
+    },
+    {
+        "id": "b6dc100896459de9",
+        "type": "comment",
+        "z": "8c7574dc27b41d05",
+        "name": "RP2 reçoit les données envoyé par RP1 et les affichent sur le dashboard",
+        "info": "",
+        "x": 320,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "6370c3c02bb87a05",
+        "type": "comment",
+        "z": "8c7574dc27b41d05",
+        "name": "RP2 mqtt receiver",
+        "info": "",
+        "x": 150,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "f388da8bce89198e",
+        "type": "mqtt in",
+        "z": "8c7574dc27b41d05",
+        "name": "",
+        "topic": "sense/environment",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "bc0e3d7c6e7c6a89",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 160,
+        "wires": [
+            [
+                "a0921ec8079a19cf"
+            ]
+        ]
+    },
+    {
+        "id": "5063af7f6a625f2f",
+        "type": "change",
+        "z": "8c7574dc27b41d05",
+        "name": "temp",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.temperature",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 445,
+        "y": 132,
+        "wires": [
+            [
+                "da2d115b701f78f2"
+            ]
+        ]
+    },
+    {
+        "id": "a0921ec8079a19cf",
+        "type": "switch",
+        "z": "8c7574dc27b41d05",
+        "name": "env",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "sense/environment",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 310,
+        "y": 160,
+        "wires": [
+            [
+                "5063af7f6a625f2f",
+                "758c6fa090566d89",
+                "da85664a71f756d2"
+            ]
+        ]
+    },
+    {
+        "id": "5c9f1d6a79de34b6",
+        "type": "mqtt out",
+        "z": "8c7574dc27b41d05",
+        "name": "",
+        "topic": "sense/motion",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3e14b5df59dce10f",
+        "x": 370,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "c80de4aa9dd09335",
+        "type": "comment",
+        "z": "8c7574dc27b41d05",
+        "name": "RP2 envoit un string à RP1 ",
+        "info": "",
+        "x": 170,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "6874dff95ea95264",
+        "type": "ui_text_input",
+        "z": "8c7574dc27b41d05",
+        "name": "",
+        "label": "Enter a text : ",
+        "tooltip": "",
+        "group": "ac2cf55c0f82b575",
+        "order": 54,
+        "width": 12,
+        "height": 2,
+        "passthru": true,
+        "mode": "text",
+        "delay": "0",
+        "topic": "topic",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 130,
+        "y": 580,
+        "wires": [
+            [
+                "b55453b82fef3b0f"
+            ]
+        ]
+    },
+    {
+        "id": "b55453b82fef3b0f",
+        "type": "mqtt out",
+        "z": "8c7574dc27b41d05",
+        "name": "",
+        "topic": "sense/text",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "f91af2d4514920c1",
+        "x": 330,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "d91eaaedd1c763ed",
+        "type": "comment",
+        "z": "8c7574dc27b41d05",
+        "name": "Récupère les données motion de la RP2 et l'envoie à la RP1",
+        "info": "",
+        "x": 280,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "1a1b78610b85ccf7",
+        "type": "comment",
+        "z": "8c7574dc27b41d05",
+        "name": "RP1 mqtt sender",
+        "info": "",
+        "x": 140,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "542ee7f4f21b3836",
+        "type": "rpi-sensehat in",
+        "z": "8c7574dc27b41d05",
+        "name": "",
+        "motion": true,
+        "env": false,
+        "stick": false,
+        "x": 120,
+        "y": 420,
+        "wires": [
+            [
+                "5c9f1d6a79de34b6"
+            ]
+        ]
+    },
+    {
+        "id": "ac2cf55c0f82b575",
+        "type": "ui_group",
+        "name": "RPI_PROJET4",
+        "tab": "aaadb2cedd4ef96c",
+        "order": 1,
+        "disp": true,
+        "width": 20,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "bc0e3d7c6e7c6a89",
+        "type": "mqtt-broker",
+        "name": "192.168.43.86",
+        "broker": "192.168.43.86",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "3e14b5df59dce10f",
+        "type": "mqtt-broker",
+        "name": "192.168.43.250",
+        "broker": "192.168.43.250",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "f91af2d4514920c1",
+        "type": "mqtt-broker",
+        "name": "192.168.43.250",
+        "broker": "192.168.43.250",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "aaadb2cedd4ef96c",
+        "type": "ui_tab",
+        "name": "RPI_Sense_hat",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]

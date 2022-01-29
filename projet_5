@@ -1,1 +1,6 @@
-
+Ce projet était divisé en deux partie. La première partie consitait à utiliser le node ble. On devait installer une application permettant de jouer le rôle d'un capteur BLE
+afin de transmettre des données. 
+Pour cela, j'ai suivi ce que vous avez indiqué sur votre google Doc :
+- j'ai installé LightBlue (BLE peripheral Simulator existe pas sur iPhone)
+- j'ai installé le node : node-red-contrib-generic-ble
+J'ai reussi à faire la liasion entre le node ble et le capteur de mon téléphone mais malheuresement je n'ai pas réussi à recevoir les données envoyés par le capteur.

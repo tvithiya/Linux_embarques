@@ -1,5 +1,4 @@
-Vithiya
-THIRUCHELVANATHAN
+
 --------------------------------------- Projet_1 ----------------------------------------
 
 - coder en bash, il suffit d'exécuter le script et écrire un calcul de la forme 'a + b' 
